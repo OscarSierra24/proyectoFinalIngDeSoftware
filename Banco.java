@@ -61,7 +61,6 @@ public class Banco {
 				wsheet.addCell(label[i]);				
 			}
 		}
-		
 		wworkBook.write();
 		wworkBook.close();
 	}

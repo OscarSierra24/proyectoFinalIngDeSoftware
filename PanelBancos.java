@@ -132,8 +132,10 @@ public class PanelBancos extends JPanel{
 						PanelBancos.this.banco[1]=new Banco("HSBCFile");
 					}
 					for(int i=0;i<PanelBancos.this.banco.length;i++){
-						PanelBancos.this.banco[i].setCliente(PanelBancos.this.cliente);
-						PanelBancos.this.banco[i].writeXls();
+						if(PanelBancos.this.banco[i]!=null){
+							PanelBancos.this.banco[i].setCliente(PanelBancos.this.cliente);
+							PanelBancos.this.banco[i].writeXls();
+						}
 					}
 				}
 				catch (IOException | WriteException e1) {

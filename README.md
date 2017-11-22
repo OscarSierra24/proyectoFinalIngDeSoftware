@@ -1,4 +1,10 @@
 # proyectoFinalIngDeSoftware
+------------------------------------UNFINISHED----------------------------
+------------------------------------UNFINISHED----------------------------
+------------------------------------UNFINISHED----------------------------
+------------------------------------UNFINISHED----------------------------
+------------------------------------UNFINISHED----------------------------
+------------------------------------UNFINISHED----------------------------
 
 Software Engineer Project, creates .xls files with information about banks with the objective of helping
 accountants by saving them time in searching for which bank offers the best deal.

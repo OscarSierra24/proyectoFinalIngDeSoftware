@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,13 +15,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import jxl.Workbook;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+
 @SuppressWarnings("serial")
 public class PanelBancos extends JPanel{
 	JRadioButton santander = new JRadioButton();
 	JRadioButton hsbc = new JRadioButton();
 	JLabel Santander,Hsbc;
 	JButton generar;
-	public PanelBancos(String bancos) {
+	Cliente cliente;
+	Banco[] banco;
+	
+	public PanelBancos(Cliente cliente) {
+		this.banco=new Banco[2];
+		this.cliente=cliente;
 		this.setPreferredSize(new Dimension(500,300)); 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -112,11 +123,29 @@ public class PanelBancos extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(santander.isSelected());
-				System.out.println(hsbc.isSelected());
+				//creates the workbook here
+				try {
+					if(PanelBancos.this.santander.isSelected()){
+							PanelBancos.this.banco[0]=new Banco("Santander");
+					}
+					if(hsbc.isSelected()){
+						PanelBancos.this.banco[1]=new Banco("HSBCFile");
+					}
+					for(int i=0;i<PanelBancos.this.banco.length;i++){
+						PanelBancos.this.banco[i].setCliente(PanelBancos.this.cliente);
+						PanelBancos.this.banco[i].writeXls();
+					}
+				}
+				catch (IOException | WriteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+				}
 			}
 		});
 		this.add(generar,c);
 	}
 	
+	public void getCliente(Cliente cliente){
+		this.cliente=cliente;
+	}
 }

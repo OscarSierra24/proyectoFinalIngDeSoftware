@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -33,9 +34,12 @@ public class PanelCaptura extends JPanel{
     JComboBox<String> producto,plazo;
     JButton guardar;
     Image logo2;
+    Cliente cliente;
     boolean bancos=false;
     
     public PanelCaptura(){
+    	this.cliente=new Cliente();
+    	
         this.setPreferredSize(new Dimension(900,750)); 
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -138,13 +142,38 @@ public class PanelCaptura extends JPanel{
 		c.gridx = 1;
 		c.gridy =7;
 		this.add(montoPrestamo,c);
+		
+		
+		//When pressing Capturar button...		
 		guardar.addActionListener(new ActionListener() {
 			VentanaBancos ventana = null;
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try{
+				PanelCaptura.this.cliente.setValorVivienda(Double.parseDouble(PanelCaptura.this.valorVivienda.getText()));
+				PanelCaptura.this.cliente.setValorDestructible(Double.parseDouble(PanelCaptura.this.valorDestructible.getText()));
+				PanelCaptura.this.cliente.setGastosNotariales(Double.parseDouble(PanelCaptura.this.gastosNotariales.getText()));
+				PanelCaptura.this.cliente.setMontoPrestamo(Double.parseDouble(PanelCaptura.this.montoPrestamo.getText()));
+				}
+				//If the data isn't correct...
+				catch(NumberFormatException nfe){
+					System.out.println(nfe.getMessage());
+					JOptionPane.showMessageDialog(PanelCaptura.this, "Por favor, revise que esté ingresando los datos de forma correcta");
+					return;
+				}
+				if(!PanelCaptura.this.nombre.getText().isEmpty() && !PanelCaptura.this.atendidoPor.getText().isEmpty()){
+					PanelCaptura.this.cliente.setNombre(PanelCaptura.this.nombre.getText());
+					PanelCaptura.this.cliente.setAtendidoPor(PanelCaptura.this.atendidoPor.getText());
+					PanelCaptura.this.cliente.setPlazo(Double.parseDouble(PanelCaptura.this.plazo.getSelectedItem().toString()));
+				}
+				//If values are empty...
+				else{
+					JOptionPane.showMessageDialog(PanelCaptura.this, "Por favor, llene todos los datos del formulario");
+					return;
+				}
 				
 				if(!bancos){
-					ventana=new VentanaBancos("");
+					ventana=new VentanaBancos(PanelCaptura.this.cliente);
 					ventana.setVisible(true);
 					bancos=true;
 				}

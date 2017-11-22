@@ -19,6 +19,7 @@ public class Ventana extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.add(new PanelCaptura());
 		this.pack();
+        this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
 	}

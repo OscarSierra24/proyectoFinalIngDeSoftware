@@ -2,11 +2,12 @@ import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class VentanaBancos extends JFrame{
-	public VentanaBancos(String bancos){
+	public VentanaBancos(Cliente cliente){
 		super("Bancos");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.add(new PanelBancos(""));
+		this.add(new PanelBancos(cliente));
 		this.pack();
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 }
